@@ -1,19 +1,15 @@
 import Link from "../common/Link"
 
-//ovde izvuci sve entitije i dodati u links dinamicno;
-
 function Sidebar(){
 
-  //links su lista entiteta koji posroje u sistemu
     const links = [
-        { label: 'Employee', path: '/' },
-        { label: 'Task', path: '/tasks' }
+        { label: 'Employees', path: '/' },
+        { label: 'Tasks', path: '/tasks' }
     ];
 
     const renderedLinks = links.map((link) => {
         return <Link className="mb-3" key={link.label} to={link.path} activeClassName="font-bold border-l-4 border-blue-500 pl-2">{link.label}</Link>
     });
-
 
     return(
       <>
@@ -27,7 +23,6 @@ function Sidebar(){
         </div>
       </>
     );
-
 }
 
 export default Sidebar;
