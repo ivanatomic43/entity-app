@@ -8,18 +8,24 @@ import useNavigation from "../hooks/use-navigation";
 function EntityPage() {
 
   const { currentPath }  = useNavigation();
-  const [pageTitle, setPageTitle] = useState('')
+  const [pageTitle, setPageTitle] = useState('');
+
+  let pageContent;
 
   useEffect(()=> {
     if(currentPath === '/'){
       setPageTitle("Employee")
-    } else if(currentPath ==='/tasks'){
+    } else if(currentPath === '/managers'){
+      setPageTitle("Manager")
+    } else if(currentPath === '/tasks'){
       setPageTitle("Task")
+    } else if (currentPath === '/orders'){
+      setPageTitle("Order")
     }
   }, [currentPath])
 
   return (
-    <div>
+    <div className=''>
       <Entity pageTitle={pageTitle} />
     </div>
   )
