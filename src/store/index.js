@@ -11,6 +11,6 @@ export const store = configureStore({
  }
 })
 
-export { useFetchEmployeesQuery, useAddEmployeeMutation } from './apis/employeesApi';
+export { useFetchEmployeesQuery, useAddEmployeeMutation, useDeleteEmployeeMutation} from './apis/employeesApi';
 
 

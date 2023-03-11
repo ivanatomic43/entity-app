@@ -1,10 +1,11 @@
-import { useFetchEmployeesQuery } from '../store/apis/employeesApi'
+import { useDeleteEmployeeMutation, useFetchEmployeesQuery } from '../store/apis/employeesApi'
 
 import Table from '../common/Table';
 
 function EmployeeList() {
 
   const { data, error } = useFetchEmployeesQuery();
+  const [ deleteEmployee, deleteEmployeeResults ] = useDeleteEmployeeMutation();
 
   let content;
   let tableConfig;
@@ -47,9 +48,13 @@ function EmployeeList() {
     }
   }
 
+  const handleDelete = (id) => {
+    deleteEmployee(id);
+  }
+
   return (
     <div>
-     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn}  /> }
+     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn} onDelete={handleDelete} /> }
      { error && content }
     </div>
   )

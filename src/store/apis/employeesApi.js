@@ -31,10 +31,18 @@ const employeesApi = createApi({
             }
           }
         }
+      }),
+      deleteEmployee: builder.mutation({
+        query: (id) => {
+          return {
+            url: `/employees/${id}`,
+            method: "DELETE"
+          }
+        }
       })
     }
   }
 })
 
-export const { useFetchEmployeesQuery, useAddEmployeeMutation } = employeesApi;
+export const { useFetchEmployeesQuery, useAddEmployeeMutation, useDeleteEmployeeMutation } = employeesApi;
 export { employeesApi }
