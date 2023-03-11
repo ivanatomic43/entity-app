@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Button from '../common/Button';
+import EmployeeList from './EmployeeList';
 import NewEntity from './NewEntity';
 
 
@@ -26,7 +27,7 @@ function Entity({pageTitle}) {
           <Button primary className="p-3" onClick={showModalClick}>Add {pageTitle}</Button>
         </div>
         <div className="m-5">
-          This is {pageTitle} page.
+          { pageTitle === 'Employee' && <EmployeeList /> }
         </div>
       </div>
       { showModal && newEntityModal }

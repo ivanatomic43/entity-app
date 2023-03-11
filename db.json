@@ -1,0 +1,25 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "firstName": "Ivana",
+      "lastName": "Tomic",
+      "dateOfBirth": "1996-05-18",
+      "email": "ivana@gmail.com",
+      "phoneNumber": "0123456789",
+      "salary": "1000"
+    },
+    {
+      "id": 2,
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "16 June, 1990",
+      "email": "johndoe@gmail.com",
+      "phoneNumber": "0631569874",
+      "salary": "1500"
+    }
+  ],
+  "tasks": [],
+  "managers": [],
+  "orders": []
+}

@@ -4,8 +4,11 @@ import Button from '../../common/Button'
 import Modal from '../../common/Modal'
 
 import { validateField } from '../../utils/helpers/formValidation'
+import { useAddEmployeeMutation } from '../../store'
 
-function Employee({type, onClose}) {
+function EmployeeForm({type, onClose}) {
+
+  const [addEmployee, results] = useAddEmployeeMutation();
 
   const [formValidation, setFormValidation] = useState({
     firstNameValid: false,
@@ -47,8 +50,12 @@ function Employee({type, onClose}) {
     }))
   }
 
+  const onSubmit = () => {
+    addEmployee(formData);
+  }
+
   return (
-    <Modal hasForm={true} modalTitle={`Create ${type}`} onClose={onClose}>
+    <Modal hasForm={true} modalTitle={`Create ${type}`} onClose={onClose} onSubmit={onSubmit}>
       <div className="grid grid-rows-4 grid-flow-row p-2">
         <div className="flex justify-between">
           <div>
@@ -78,4 +85,4 @@ function Employee({type, onClose}) {
   )
 }
 
-export default Employee
+export default EmployeeForm
