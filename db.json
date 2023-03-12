@@ -19,7 +19,20 @@
       "salary": "1500"
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Task 1",
+      "description": "Task 1 description",
+      "employeeId": 1
+    },
+    {
+      "title": "Task 2",
+      "description": "Task 2 description",
+      "employeeId": 2,
+      "id": 2
+    }
+  ],
   "managers": [],
   "orders": []
 }
