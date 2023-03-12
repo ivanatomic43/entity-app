@@ -13,7 +13,7 @@ function Modal({children, onClose, modalTitle, onSubmit, hasForm}) {
           />
           <div className="dialog">
             <div className="content">
-              <div className='modal-container bg-white p-5'>
+              <div className='modal-container bg-white p-3'>
                 <h3 className='text-center text-black font-medium text-xl'>{modalTitle}</h3>
                   {children}
               </div>

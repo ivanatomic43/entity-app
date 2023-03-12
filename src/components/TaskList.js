@@ -1,4 +1,4 @@
-import { useFetchTasksQuery } from '../store/apis/tasksApi'
+import { useDeleteTaskMutation, useFetchTasksQuery } from '../store/apis/tasksApi'
 
 import Table from '../common/Table';
 
@@ -6,6 +6,7 @@ function TaskList() {
 
   //Table content
   const { data, error } = useFetchTasksQuery();
+  const [ deleteTask, deleteTaskResults] = useDeleteTaskMutation();
 
   let content;
   let tableConfig;
@@ -25,8 +26,12 @@ function TaskList() {
           render: (task) => task.description
         },
         {
-          label: "Employee",
+          label: "Assignee",
           render: (task) => task.employeeId
+        },
+        {
+          label: "Due Date",
+          render: (task) => task.dueDate
         }
       ]
 
@@ -35,10 +40,14 @@ function TaskList() {
       }
     }
   }
-  
+
+  const handleDelete = (id) => {
+    deleteTask(id);
+  }
+
   return (
     <div>
-     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn} /> }
+     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn} onDelete={handleDelete} /> }
      { error && content }
     </div>
   )

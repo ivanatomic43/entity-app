@@ -15,6 +15,6 @@ export const store = configureStore({
 })
 
 export { useFetchEmployeesQuery, useAddEmployeeMutation, useDeleteEmployeeMutation} from './apis/employeesApi';
-export { useFetchTasksQuery, useAddTaskMutation } from './apis/tasksApi';
+export { useFetchTasksQuery, useAddTaskMutation, useDeleteTaskMutation } from './apis/tasksApi';
 
 

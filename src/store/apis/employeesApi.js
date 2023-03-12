@@ -8,6 +8,13 @@ const employeesApi = createApi({
   endpoints(builder){
     return {
       fetchEmployees: builder.query({
+        providesTags: (result, error) => {
+          const tags = result.map(employee => {
+            return { type: 'Employee', id: employee.id }
+          });
+
+          return tags;
+        },
         query: () => {
           return {
             url: '/employees',
@@ -16,6 +23,9 @@ const employeesApi = createApi({
         }
       }),
       addEmployee: builder.mutation({
+        invalidatesTags: (result, error, employee) => {
+          return [{type: 'Employee', id: employee.id}]
+        },
         query: (employee) => {
           return {
             url: '/employees',
@@ -32,6 +42,9 @@ const employeesApi = createApi({
         }
       }),
       deleteEmployee: builder.mutation({
+        invalidatesTags: (result, error, employee) => {
+          return [{type: 'Employee', id: employee.id}]
+        },
         query: (id) => {
           return {
             url: `/employees/${id}`,

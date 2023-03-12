@@ -52,6 +52,7 @@ function EmployeeForm({type, onClose}) {
 
   const onSubmit = () => {
     addEmployee(formData);
+    onClose();
   }
 
   return (

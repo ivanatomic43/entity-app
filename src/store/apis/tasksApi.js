@@ -8,6 +8,13 @@ const tasksApi = createApi({
   endpoints(builder){
     return {
       fetchTasks: builder.query({
+        providesTags: (result, error) => {
+          const tags = result.map(task => {
+            return { type: 'Task', id: task.id }
+          });
+
+          return tags;
+        },
         query: () => {
           return {
             url: '/tasks',
@@ -16,6 +23,9 @@ const tasksApi = createApi({
         }
       }),
       addTask: builder.mutation({
+        invalidatesTags: (result, error, task) => {
+          return [{type: 'Task', id: task.id}]
+        },
         query: (task) => {
           return {
             url: '/tasks',
@@ -23,8 +33,20 @@ const tasksApi = createApi({
             body: {
               title: task.title,
               description: task.description,
-              employeeId: task.employeeId
+              employeeId: task.employeeId,
+              dueDate: JSON.stringify(task.dueDate)
             }
+          }
+        }
+      }),
+      deleteTask: builder.mutation({
+        invalidatesTags: (result, error, task) => {
+          return [{type: 'Task', id: task.id}]
+        },
+        query: (id) => {
+          return {
+            url: `/tasks/${id}`,
+            method: "DELETE"
           }
         }
       })
@@ -32,5 +54,5 @@ const tasksApi = createApi({
   }
 });
 
-export const { useFetchTasksQuery, useAddTaskMutation } = tasksApi;
+export const { useFetchTasksQuery, useAddTaskMutation, useDeleteTaskMutation } = tasksApi;
 export { tasksApi }
