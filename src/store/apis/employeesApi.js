@@ -22,6 +22,14 @@ const employeesApi = createApi({
           }
         }
       }),
+      fetchEmployee: builder.query({
+        query: (id) => {
+          return {
+            url: `/employees/${id}`,
+            method: "GET"
+          }
+        }
+      }),
       addEmployee: builder.mutation({
         invalidatesTags: (result, error, employee) => {
           return [{type: 'Employee', id: employee.id}]
@@ -51,10 +59,22 @@ const employeesApi = createApi({
             method: "DELETE"
           }
         }
+      }),
+      updateEmployee: builder.mutation({
+        invalidatesTags: (result, error, employee) => {
+          return [{type: 'Employee', id: employee.id}]
+        },
+        query: (employee) => {
+          return {
+            url: `/employees/${employee.id}`,
+            method: "PATCH",
+            body: employee
+          }
+        }
       })
     }
   }
 })
 
-export const { useFetchEmployeesQuery, useAddEmployeeMutation, useDeleteEmployeeMutation } = employeesApi;
+export const { useFetchEmployeesQuery, useAddEmployeeMutation, useDeleteEmployeeMutation, useFetchEmployeeQuery, useUpdateEmployeeMutation } = employeesApi;
 export { employeesApi }

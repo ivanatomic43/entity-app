@@ -1,12 +1,19 @@
-import { useDeleteEmployeeMutation, useFetchEmployeesQuery } from '../store/apis/employeesApi'
+import { useState } from 'react';
+import { useDeleteEmployeeMutation, useFetchEmployeeQuery, useFetchEmployeesQuery } from '../store/apis/employeesApi'
+import { useEmployee } from '../hooks/use-employee'
 
 import Table from '../common/Table';
+import EmployeeForm from '../components/forms/EmployeeForm';
 
 function EmployeeList() {
 
   const { data, error } = useFetchEmployeesQuery();
+  
   const [ deleteEmployee, deleteEmployeeResults ] = useDeleteEmployeeMutation();
-
+  
+  const [ showEdit, setShowEdit] = useState(false);
+  const [editUserId, setEditUserId] = useState(null);
+  
   let content;
   let tableConfig;
   let keyFn;
@@ -52,10 +59,20 @@ function EmployeeList() {
     deleteEmployee(id);
   }
 
+  const onEditOpen = (id) => {
+    setShowEdit(true);
+    setEditUserId(id);
+  }
+
+  const onEditClose = () => {
+    setShowEdit(false);
+  }
+
   return (
     <div>
-     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn} onDelete={handleDelete} /> }
+     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn} onDelete={handleDelete} onEditClick={onEditOpen} /> }
      { error && content }
+     {showEdit && <EmployeeForm onEditClose={onEditClose} type="Employee" editMode="true" employeeEditId={editUserId}/>}
     </div>
   )
 }

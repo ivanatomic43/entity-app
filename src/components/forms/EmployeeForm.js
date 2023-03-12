@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from '../../common/Input'
 import Button from '../../common/Button'
 import Modal from '../../common/Modal'
 
 import { validateField } from '../../utils/helpers/formValidation'
-import { useAddEmployeeMutation } from '../../store'
+import { useAddEmployeeMutation, useFetchEmployeeQuery, useUpdateEmployeeMutation } from '../../store'
 
-function EmployeeForm({type, onClose}) {
+function EmployeeForm({type, onClose, onEditClose, editMode, employeeEditId}) {
 
   const [addEmployee, results] = useAddEmployeeMutation();
+  const { data: employeeEdit, error, isFetching} = useFetchEmployeeQuery(employeeEditId);
+  const [ updateEmployee, updateResults] = useUpdateEmployeeMutation();
 
   const [formValidation, setFormValidation] = useState({
     firstNameValid: false,
@@ -31,6 +33,20 @@ function EmployeeForm({type, onClose}) {
     salary: ''
   })
 
+  useEffect(()=> {
+    if(editMode && employeeEdit){
+      setFormData({
+        id: employeeEdit.id,
+        firstName: employeeEdit.firstName,
+        lastName: employeeEdit.lastName,
+        dateOfBirth: employeeEdit.dateOfBirth,
+        email: employeeEdit.email,
+        phoneNumber: employeeEdit.phoneNumber,
+        salary: employeeEdit.salary
+      })
+    }
+  }, [employeeEdit])
+
   const { firstName, lastName, dateOfBirth, email, phoneNumber, salary } = formData;
 
   const handleOnChange = (event) => {
@@ -50,13 +66,22 @@ function EmployeeForm({type, onClose}) {
     }))
   }
 
-  const onSubmit = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
     addEmployee(formData);
     onClose();
   }
 
+  const onEditSubmit = (event) => {
+    event.preventDefault();
+
+    updateEmployee(formData);
+    onEditClose();
+  }
+
+
   return (
-    <Modal hasForm={true} modalTitle={`Create ${type}`} onClose={onClose} onSubmit={onSubmit}>
+    <Modal hasForm={true} modalTitle={ editMode ? `Edit ${type}`: `Create ${type}`} onClose={ editMode ? onEditClose : onClose } onSubmit={ editMode ? onEditSubmit : onSubmit} >
       <div className="grid grid-rows-4 grid-flow-row p-2">
         <div className="flex justify-between">
           <div>
@@ -73,13 +98,13 @@ function EmployeeForm({type, onClose}) {
           <Input labelName="Email address" inputType="text" id="email" name="email" value={email} onChange={handleOnChange} validationError={formValidation.formErrors.email} />
         </div>
         <div>
-          <Input labelName="Phone Number" inputType="text" id="phoneNumber" name="phoneNumber" value={phoneNumber} onChange={handleOnChange} validationError={formValidation.formErrors.phoneNumber} />
+          <Input labelName="Phone Number" inputType="text" id="phoneNumber" name="phoneNumber" value={ phoneNumber} onChange={handleOnChange} validationError={formValidation.formErrors.phoneNumber} />
         </div>
         <div>
           <Input labelName="Monthly Salary" inputType="text" id="salary" name="salary" value={salary} onChange={handleOnChange} validationError={formValidation.formErrors.salary} />
         </div>
         <div className="m-2">
-          <Button orange rounded primary className="p-3 w-full hover:bg-gray-300">Add {type}</Button>
+          <Button orange rounded primary className="p-3 w-full hover:bg-gray-300">{editMode ? `Save` : `Add ${type}` }</Button>
         </div>
       </div>
     </Modal>

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import Button  from '../common/Button'
 
-function Table({data, config, keyFn, onDelete}){
+function Table({data, config, keyFn, onDelete, onEditClick}){
 
   const handleDeleteClick = (event) => {
     console.log(event.target.id);
@@ -9,6 +9,7 @@ function Table({data, config, keyFn, onDelete}){
   }
   const handleEditClick = (event) => {
     console.log("Editing..." + event.target.id);
+    onEditClick(event.target.id);
   }
 
     const renderedRows = data.map((rowData) => {
