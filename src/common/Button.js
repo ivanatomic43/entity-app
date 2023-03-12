@@ -4,6 +4,7 @@ const Button = ({
   children,
   primary,
   rounded,
+  orange,
   full,
   onClick,
   disabled,

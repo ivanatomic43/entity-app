@@ -21,7 +21,6 @@ const employeesApi = createApi({
             url: '/employees',
             method: "POST",
             body: {
-              id: 2,
               firstName: employee.firstName,
               lastName: employee.lastName,
               dateOfBirth: employee.dateOfBirth,

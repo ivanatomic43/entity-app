@@ -5,8 +5,8 @@ function Sidebar(){
   // TO-DO
   const links = [
     { label: 'Employees', path: '/' },
-    { label: 'Managers', path: '/managers' },
     { label: 'Tasks', path: '/tasks' },
+    { label: 'Managers', path: '/managers' },
     { label: 'Orders', path: '/orders' }
   ];
 

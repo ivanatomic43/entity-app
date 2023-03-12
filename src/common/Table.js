@@ -42,7 +42,7 @@ function Table({data, config, keyFn, onDelete}){
         <thead>
           <tr className="border-b-2">
             {renderedHeaders}
-            <th className="p-2 text-black border-2 border-slate-50 bg-blue-500">Manage</th>
+            <th className="w-50 p-2 text-black border-2 border-slate-50 bg-blue-500">Manage</th>
           </tr>
         </thead>
         <tbody>

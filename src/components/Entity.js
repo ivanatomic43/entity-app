@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Button from '../common/Button';
 import EmployeeList from './EmployeeList';
 import NewEntity from './NewEntity';
+import TaskList from './TaskList';
 
 
 function Entity({pageTitle}) {
@@ -28,6 +29,7 @@ function Entity({pageTitle}) {
         </div>
         <div className="m-5">
           { pageTitle === 'Employee' && <EmployeeList /> }
+          { pageTitle === 'Task' && <TaskList /> }
         </div>
       </div>
       { showModal && newEntityModal }
