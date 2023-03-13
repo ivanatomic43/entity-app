@@ -16,13 +16,8 @@ function Sidebar(){
 
   return(
     <>
-      <div className="ml-3">
-        <div className="sticky top-0 m-5 text-center pb-3">
-          <Link to="/new-entity" className="rounded font-bold text-white bg-blue-500 hover:bg-orange-300 p-3">Add Entity</Link>
-        </div>
-        <div className="sticky top-0 overflow-y-scroll flex flex-col items-start">
-          {renderedLinks}
-        </div>
+      <div className="sticky overflow-y-scroll top-0 flex flex-col items-start mt-8 ml-5">
+        {renderedLinks}
       </div>
     </>
   );

@@ -22,6 +22,14 @@ const tasksApi = createApi({
           }
         }
       }),
+      fetchTask: builder.query({
+        query: (id) => {
+          return {
+            url: `/tasks/${id}`,
+            method: "GET"
+          }
+        }
+      }),
       addTask: builder.mutation({
         invalidatesTags: (result, error, task) => {
           return [{type: 'Task', id: task.id}]
@@ -49,10 +57,22 @@ const tasksApi = createApi({
             method: "DELETE"
           }
         }
+      }),
+      updateTask: builder.mutation({
+        invalidatesTags: (result, error, task) => {
+          return [{type: 'Task', id: task.id}]
+        },
+        query: (task) => {
+          return {
+            url: `/tasks/${task.id}`,
+            method: "PATCH",
+            body: task
+          }
+        }
       })
     }
   }
 });
 
-export const { useFetchTasksQuery, useAddTaskMutation, useDeleteTaskMutation } = tasksApi;
+export const { useFetchTasksQuery, useAddTaskMutation, useDeleteTaskMutation, useFetchTaskQuery, useUpdateTaskMutation } = tasksApi;
 export { tasksApi }

@@ -1,22 +1,25 @@
-import { useState } from "react"
-import Calendar from "react-calendar"
-
-import 'react-calendar/dist/Calendar.css';
+import { useEffect, useState } from "react"
 
 import { useAddTaskMutation } from "../../store/apis/tasksApi"
 import { validateField } from "../../utils/helpers/formValidation"
 import { useFetchEmployeesQuery } from "../../store"
+import { useFetchTaskQuery, useUpdateTaskMutation } from "../../store/apis/tasksApi";
+import { getEmployee } from "../../utils/helpers/getEmployee";
 
 import Input from "../../common/Input"
 import Button from "../../common/Button"
 import Modal from "../../common/Modal"
-
 import Dropdown from "../../common/Dropdown"
+import Calendar from "react-calendar"
 
+import 'react-calendar/dist/Calendar.css';
 
-function Task({type, onClose}) {
+function Task({type, onClose, onEditClose, editMode, taskEditId}) {
 
   const [ addTask, results] = useAddTaskMutation();
+  const { data: taskEdit, editError } = useFetchTaskQuery(taskEditId);
+  const [ updateTask, updateResults ] = useUpdateTaskMutation();
+  const { data: employeeList, errorList } = useFetchEmployeesQuery();
 
   const [ formData, setFormData ] = useState({
     title: '',
@@ -35,10 +38,25 @@ function Task({type, onClose}) {
     formType: type
   })
 
+  useEffect(() => {
+    if(editMode && taskEdit){
+      setFormData({
+        id: taskEdit.id,
+        title: taskEdit.title,
+        description: taskEdit.description,
+        employeeId: taskEdit.employeeId
+      })
+
+      if(employeeList) {
+      const employeeForDropdown = getEmployee(taskEdit.employeeId, employeeList)
+      setSelected(employeeForDropdown);
+      }
+    }
+  }, [taskEdit])
+
   const { title, description, employee, dueDate } = formData;
 
   const handleOnChange = (event) => {
-    console.log(event);
     setFormData((prevState) => ({
       ...prevState,
       [event.target.id]: event.target.value
@@ -91,8 +109,15 @@ function Task({type, onClose}) {
     onClose();
   }
 
+  const onEditSubmit = event => {
+    event.preventDefault();
+
+    updateTask(formData);
+    onEditClose();
+  }
+
   return (
-    <Modal hasForm={true} modalTitle={`Create ${type}`} onClose={onClose} onSubmit={onSubmit}>
+    <Modal hasForm={true} modalTitle={ editMode ? `Edit ${type}` : `Create ${type}`} onClose={editMode ? onEditClose : onClose} onSubmit={ editMode ? onEditSubmit : onSubmit}>
     <div className="grid grid-rows-2 grid-flow-row p-1">
       <div>
         <Input labelName="Title" inputType="text" id="title" name="title" value={title} onChange={handleOnChange} validationError={formValidation.formErrors.title} />
@@ -108,7 +133,7 @@ function Task({type, onClose}) {
         <Calendar className="bg-gray-200 m-2" id="dueDate" name="dueDate" value={dueDate} onChange={handleDateChange} />
       </div>
       <div className="m-2">
-        <Button orange rounded primary className="p-3 w-full hover:bg-gray-300">Add {type}</Button>
+        <Button orange rounded primary className="p-3 w-full hover:bg-gray-300">{editMode ? `Save` : `Add ${type}`}</Button>
       </div>
     </div>
     </Modal>

@@ -1,12 +1,22 @@
+import { useState } from 'react';
+
 import { useDeleteTaskMutation, useFetchTasksQuery } from '../store/apis/tasksApi'
+import { useFetchEmployeesQuery } from '../store';
+import { getEmployee } from '../utils/helpers/getEmployee';
 
 import Table from '../common/Table';
+import TaskForm from '../components/forms/TaskForm'
 
 function TaskList() {
 
   //Table content
   const { data, error } = useFetchTasksQuery();
-  const [ deleteTask, deleteTaskResults] = useDeleteTaskMutation();
+  const [ deleteTask ] = useDeleteTaskMutation();
+
+  const [ showEdit, setShowEdit] = useState(false);
+  const [ taskEditId, setTaskEditId ] = useState(null);
+
+  const { data: employeesList } = useFetchEmployeesQuery();
 
   let content;
   let tableConfig;
@@ -14,8 +24,8 @@ function TaskList() {
 
   if(error) {
     content = <div>Error loading tasks.</div>
-  } else if(data) {
-    if (data){
+  } else if(data && employeesList) {
+    if (data && employeesList){
       tableConfig =  [
         {
           label: "Title",
@@ -27,11 +37,18 @@ function TaskList() {
         },
         {
           label: "Assignee",
-          render: (task) => task.employeeId
+          render: (task) => {
+            const assignee = getEmployee(task.employeeId, employeesList)
+            return assignee.firstName + " " + assignee.lastName;
+          }
         },
         {
           label: "Due Date",
-          render: (task) => task.dueDate
+          render: (task) => {
+            const date = task.dueDate.split("T");
+            const myDate = date[0].split("\"");
+            return myDate;
+          }
         }
       ]
 
@@ -45,10 +62,20 @@ function TaskList() {
     deleteTask(id);
   }
 
+  const onEditOpen = (id) => {
+    setShowEdit(true);
+    setTaskEditId(id);
+  }
+
+  const onEditClose = () => {
+    setShowEdit(false);
+  }
+
   return (
     <div>
-     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn} onDelete={handleDelete} /> }
+     {(data && tableConfig) && <Table data={data} config={tableConfig} keyFn={keyFn} onDelete={handleDelete} onEditClick={onEditOpen} /> }
      { error && content }
+     { showEdit && <TaskForm onEditClose={onEditClose} type="Task" editMode="true" taskEditId={taskEditId} />}
     </div>
   )
 }

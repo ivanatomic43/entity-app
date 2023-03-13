@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useDeleteEmployeeMutation, useFetchEmployeeQuery, useFetchEmployeesQuery } from '../store/apis/employeesApi'
-import { useEmployee } from '../hooks/use-employee'
+import { useDeleteEmployeeMutation, useFetchEmployeesQuery } from '../store/apis/employeesApi'
 
 import Table from '../common/Table';
 import EmployeeForm from '../components/forms/EmployeeForm';
@@ -8,12 +7,12 @@ import EmployeeForm from '../components/forms/EmployeeForm';
 function EmployeeList() {
 
   const { data, error } = useFetchEmployeesQuery();
-  
-  const [ deleteEmployee, deleteEmployeeResults ] = useDeleteEmployeeMutation();
-  
+
+  const [ deleteEmployee ] = useDeleteEmployeeMutation();
+
   const [ showEdit, setShowEdit] = useState(false);
   const [editUserId, setEditUserId] = useState(null);
-  
+
   let content;
   let tableConfig;
   let keyFn;

@@ -1,4 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import { employeesApi } from "./apis/employeesApi";
 import { tasksApi } from "./apis/tasksApi";
 
@@ -14,7 +15,9 @@ export const store = configureStore({
  }
 })
 
+setupListeners(store.dispatch);
+
 export { useFetchEmployeesQuery, useAddEmployeeMutation, useDeleteEmployeeMutation, useFetchEmployeeQuery, useUpdateEmployeeMutation} from './apis/employeesApi';
-export { useFetchTasksQuery, useAddTaskMutation, useDeleteTaskMutation } from './apis/tasksApi';
+export { useFetchTasksQuery, useAddTaskMutation, useDeleteTaskMutation, useFetchTaskQuery, useUpdateTaskMutation } from './apis/tasksApi';
 
 
