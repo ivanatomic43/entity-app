@@ -1,7 +1,7 @@
 import TaskForm from './forms/TaskForm';
 import EmployeeForm from './forms/EmployeeForm';
 import OrderForm from './forms/OrderForm';
-import ManagerForm from './forms/ManagerForm';
+import ProductForm from './forms/ProductForm';
 
 function NewEntity({onClose, type}) {
 
@@ -9,8 +9,8 @@ function NewEntity({onClose, type}) {
 
   if (type === 'Employee'){
     content = <EmployeeForm  type={type} onClose={onClose}/>
-  } else if (type === 'Manager'){
-    content = <ManagerForm type={type} onClose={onClose} />
+  } else if (type === 'Product'){
+    content = <ProductForm type={type} onClose={onClose} />
   } else if (type === 'Task') {
     content = <TaskForm type={type} onClose={onClose} />
   } else if (type === 'Order'){

@@ -15,8 +15,8 @@ function EntityPage() {
   useEffect(()=> {
     if(currentPath === '/'){
       setPageTitle("Employee")
-    } else if(currentPath === '/managers'){
-      setPageTitle("Manager")
+    } else if(currentPath === '/products'){
+      setPageTitle("Product")
     } else if(currentPath === '/tasks'){
       setPageTitle("Task")
     } else if (currentPath === '/orders'){

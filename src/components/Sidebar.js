@@ -6,7 +6,7 @@ function Sidebar(){
   const links = [
     { label: 'Employees', path: '/' },
     { label: 'Tasks', path: '/tasks' },
-    { label: 'Managers', path: '/managers' },
+    { label: 'Products', path: '/products' },
     { label: 'Orders', path: '/orders' }
   ];
 
