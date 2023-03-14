@@ -17,6 +17,60 @@
       "email": "johndoe@gmail.com",
       "phoneNumber": "0631569874",
       "salary": "1500"
+    },
+    {
+      "firstName": "Peter",
+      "lastName": "Parker",
+      "dateOfBirth": "12 March, 1987",
+      "email": "peter@gmail.com",
+      "phoneNumber": "+364958712",
+      "salary": "1350",
+      "id": 3
+    },
+    {
+      "firstName": "Anna",
+      "lastName": "Galagher",
+      "dateOfBirth": "09 June, 1995",
+      "email": "annagal@gmail.com",
+      "phoneNumber": "+1569842569",
+      "salary": "900",
+      "id": 4
+    },
+    {
+      "firstName": "Nick",
+      "lastName": "Jones",
+      "dateOfBirth": "29 Oct, 1992",
+      "email": "jonesnick@gmail.com",
+      "phoneNumber": "+64529856412",
+      "salary": "1450",
+      "id": 5
+    },
+    {
+      "firstName": "Rosie",
+      "lastName": "Taylor",
+      "dateOfBirth": "30 January, 1993",
+      "email": "rosiet@gmail.com",
+      "phoneNumber": "+325694784",
+      "salary": "980",
+      "id": 6
+    },
+    {
+      "firstName": "Amanda",
+      "lastName": "Frey",
+      "dateOfBirth": "17 April, 1994",
+      "email": "afrey@gmail.com",
+      "phoneNumber": "+3456978125",
+      "salary": "1100",
+      "id": 7
+    },
+    {
+      "firstName": "Brian",
+      "lastName": "Willis",
+      "dateOfBirth": "06 May, 1977",
+      "email": "willisbrian@gmail.com",
+      "phoneNumber": "+456978912",
+      "salary": "900",
+      "id": 8
     }
   ],
   "tasks": [
@@ -24,12 +78,14 @@
       "id": 1,
       "title": "Task 1",
       "description": "Task 1 description",
-      "employeeId": 1
+      "employeeId": 1,
+      "dueDate": "2023-03-21T23:00:00.000Z"
     },
     {
       "title": "Task 2",
       "description": "Task 2 description",
-      "employeeId": 2,
+      "employeeId": 1,
+      "dueDate": "2023-03-13T23:00:00.000Z",
       "id": 2
     }
   ],
