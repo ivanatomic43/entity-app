@@ -4,11 +4,9 @@ import Button  from '../common/Button'
 function Table({data, config, keyFn, onDelete, onEditClick}){
 
   const handleDeleteClick = (event) => {
-    console.log(event.target.id);
     onDelete(event.target.id);
   }
   const handleEditClick = (event) => {
-    console.log("Editing..." + event.target.id);
     onEditClick(event.target.id);
   }
 
