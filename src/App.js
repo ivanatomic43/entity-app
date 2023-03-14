@@ -18,7 +18,7 @@ function App() {
           <div className="col-span-5">
             <Routes>
               <Route exact path='/' element={<EntityPage></EntityPage>} />
-              <Route path="/managers" element={<EntityPage></EntityPage>} />
+              <Route path="/products" element={<EntityPage></EntityPage>} />
               <Route path="/tasks" element={<EntityPage></EntityPage>} />
               <Route path="/orders" element={<EntityPage></EntityPage>} />
             </Routes>
