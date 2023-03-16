@@ -121,5 +121,13 @@
       "quantity": 2
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": 1,
+      "name": "Order 1",
+      "dateOfOrder": "18 jan",
+      "deliverDate": "25 jan"
+
+    }
+  ]
 }
